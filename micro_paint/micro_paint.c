@@ -25,10 +25,27 @@ int draw(char type, float s_x, float s_y, int x, int y, char ch) {
     if ((type != 'R' && type != 'r') || (s_x + x > w || s_y + y > h))
         return -1;
     if (type == 'r') {
-        //todo: draw border
+        // draw border
+        for (int i = 0; i < h; i++)
+        {
+            for (int j = 0; j < w; j++)
+            {
+                if ((j > s_x && j < s_x + x && (i == (int)s_y || i == (int)s_y + y))
+                    || i > s_y && i < s_y + y && (j == (int)s_x || j == (int)s_x + x))
+                    zone[i][j] = ch;
+            }
+        }
         return 0;
     }
-    //todo: draw filled
+    // draw filled
+    for (int i = 0; i < h; i++)
+    {
+        for (int j = 0; j < w; j++)
+        {
+            if (i > s_y && i < s_y + y && j > s_x && j < s_x + x)
+                zone[i][j] = ch;
+        }
+    }
     return 0;
 }
 
