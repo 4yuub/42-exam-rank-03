@@ -21,6 +21,11 @@ int file_err(void) {
     return 1;
 }
 
+int ft_round(float n)
+{
+    return n + (n - (int) n != 0);
+}
+
 int draw(char type, float s_x, float s_y, int x, int y, char ch) {
     if ((type != 'R' && type != 'r') || (s_x + x > w || s_y + y > h))
         return -1;
@@ -28,8 +33,8 @@ int draw(char type, float s_x, float s_y, int x, int y, char ch) {
         // draw border
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                if (((j > s_x && j < s_x + x) && (i == (int)s_y || i == (int)s_y + y))
-                    || (i > s_y && i < s_y + y && (j == (int)s_x || j == (int)s_x + x)))
+                if (((j == ft_round(s_x) || j == (int)s_x + x) && (i < s_y + y && i > s_y))
+                    || ((i == ft_round(s_y) || i == (int)s_y + y) && (j < s_x + x && j > s_x)))
                     zone[i][j] = ch;
             }
         }
@@ -76,4 +81,5 @@ int main(int ac, char **av) {
         putstr(zone[i]);
         putstr("\n");
     }
+    fclose(file);
 }
