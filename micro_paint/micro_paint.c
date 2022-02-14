@@ -27,7 +27,7 @@ int ft_round(float n)
 }
 
 int draw(char type, float s_x, float s_y, int x, int y, char ch) {
-    if ((type != 'R' && type != 'r') || (s_x + x > w || s_y + y > h))
+    if (type != 'R' && type != 'r')
         return -1;
     if (type == 'r') {
         // draw border
