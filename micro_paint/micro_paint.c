@@ -28,8 +28,8 @@ int draw(char type, float s_x, float s_y, int x, int y, char ch) {
         // draw border
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                if ((j > s_x && j < s_x + x && (i == (int)s_y || i == (int)s_y + y))
-                    || i > s_y && i < s_y + y && (j == (int)s_x || j == (int)s_x + x))
+                if (((j > s_x && j < s_x + x) && (i == (int)s_y || i == (int)s_y + y))
+                    || (i > s_y && i < s_y + y && (j == (int)s_x || j == (int)s_x + x)))
                     zone[i][j] = ch;
             }
         }
