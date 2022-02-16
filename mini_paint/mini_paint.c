@@ -26,14 +26,15 @@ int ft_round(float n)
     return n + (n - (int) n != 0);
 }
 
-int draw(char type, float x_o, float y_o, int r, char ch) {
+int draw(char type, float x_o, float y_o, float r, char ch) {
     if (type != 'c' && type != 'C')
         return -1;
     if (type == 'c') {
         // draw border
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
-                if ((int) sqrtf((x - x_o) * (x - x_o) + (y - y_o) * (y - y_o)) == r - 1)
+                if (sqrtf((x - x_o) * (x - x_o) + (y - y_o) * (y - y_o)) <= r
+                    && r - sqrtf((x - x_o) * (x - x_o) + (y - y_o) * (y - y_o)) < 1)
                     zone[y][x] = ch;
             }
         }
@@ -42,7 +43,7 @@ int draw(char type, float x_o, float y_o, int r, char ch) {
     // draw filled
     for (int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
-            if ((int) sqrtf((x - x_o) * (x - x_o) + (y - y_o) * (y - y_o)) < r)
+            if (sqrtf((x - x_o) * (x - x_o) + (y - y_o) * (y - y_o)) <= r)
                 zone[y][x] = ch;
         }
     }
@@ -66,10 +67,9 @@ int main(int ac, char **av) {
         zone[i] = calloc(w + 1, 1);
         memset(zone[i], c, w);
     }
-    float x_o, y_o;
-    int   r;
+    float x_o, y_o, r;
     char  type, ch;
-    while ((ret = fscanf(file, "%c %f %f %d %c\n", &type, &x_o, &y_o, &r, &ch)) != -1) {
+    while ((ret = fscanf(file, "%c %f %f %f %c\n", &type, &x_o, &y_o, &r, &ch)) != -1) {
         if (ret != 5)
             return file_err();
         if (draw(type, x_o, y_o, r, ch) == -1)
