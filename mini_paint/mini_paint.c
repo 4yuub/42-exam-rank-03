@@ -21,13 +21,8 @@ int file_err(void) {
     return 1;
 }
 
-int ft_round(float n)
-{
-    return n + (n - (int) n != 0);
-}
-
 int draw(char type, float x_o, float y_o, float r, char ch) {
-    if (type != 'c' && type != 'C')
+    if ((type != 'c' && type != 'C') || r <= 0)
         return -1;
     if (type == 'c') {
         // draw border
